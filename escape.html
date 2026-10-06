@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성읍민속마을 방탈출</title>
+    <style>
+        /* 모바일 화면에 맞춘 기본 스타일 설정 */
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background-color: #f4f1ea; /* 옛스러운 느낌의 배경색 */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* 메인 콘텐츠가 담길 하얀 박스 */
+        .container {
+            background-color: white;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* 화면 숨김 처리용 클래스 */
+        .hidden {
+            display: none !important;
+        }
+
+        h1 { color: #333; font-size: 24px; }
+        h2 { color: #d35400; font-size: 20px; margin-top: 0; }
+        
+        .story {
+            font-style: italic;
+            color: #555;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .mission-desc {
+            text-align: left;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* 입력창 디자인 */
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        /* 버튼 디자인 */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 85%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- 🎬 시작 화면 -->
+        <div id="screen-start">
+            <h1>🕵️‍♂️ 성읍민속마을 방탈출</h1>
+            <h2>[시간여행자의 비밀]</h2>
+            <div class="story">
+                "앗! 눈을 떠보니 옛 제주 마을로 시간 여행을 오고 말았다!<br><br>
+                원래의 시간으로 돌아가기 위해서는 성읍민속마을 곳곳에 숨겨진 단서를 찾아 비밀의 문을 열어야 한다!"
+            </div>
+            <button onclick="startGame()">시간 여행 시작하기</button>
+        </div>
+
+        <!-- 📍 미션 1 화면 -->
+        <div id="screen-1" class="hidden">
+            <h2>📍 미션 1. 제주의 대문</h2>
+            <div class="mission-desc">
+                <p><strong>🔎 관찰 포인트:</strong> 초가집 입구의 돌기둥(정주석)과 나무막대기(정낭)</p>
+                <p>옛 제주 사람들은 대문 대신 '정낭'이라는 나무막대기를 걸어두어 주인의 외출을 알렸습니다.<br><br>
+                그렇다면 집 주인이 <strong>"아주 멀리 가서 며칠 동안 돌아오지 않는다"</strong>를 뜻하는 나무막대기의 개수는 몇 개인가요?</p>
+            </div>
+            <input type="text" id="answer-1" placeholder="숫자로만 입력 (예: 1)">
+            <button onclick="checkAnswer(1, '3')">정답 확인</button>
+        </div>
+
+        <!-- 📍 미션 2 화면 -->
+        <div id="screen-2" class="hidden">
+            <h2>📍 미션 2. 마을의 중심을 찾아라</h2>
+            <div class="mission-desc">
+                <p><strong>🔎 관찰 포인트:</strong> 거대한 느티나무와 팽나무, 그 뒤의 옛 관아</p>
+                <p>거대한 옛 나무들이 지키고 있는 이곳은 옛 정의현 사또가 업무를 보던 관청입니다.<br><br>
+                안내판을 읽어보고 이 건물의 이름을 적어주세요.</p>
+            </div>
+            <input type="text" id="answer-2" placeholder="세 글자 입력">
+            <button onclick="checkAnswer(2, '일관헌')">정답 확인</button>
+        </div>
+
+        <!-- 📍 미션 3 화면 -->
+        <div id="screen-3" class="hidden">
+            <h2>📍 미션 3. 제주의 특별한 화장실</h2>
+            <div class="mission-desc">
+                <p><strong>🔎 관찰 포인트:</strong> 초가집 마당 한편에 있는 화장실</p>
+                <p>옛 제주도의 전통 화장실인 '통시'를 찾아보세요.<br><br>
+                이곳은 화장실이자 동시에 '이 동물'을 기르는 곳이었습니다. 지금도 제주도에서 아주 유명한 이 검은 동물은 무엇일까요?</p>
+            </div>
+            <input type="text" id="answer-3" placeholder="동물 이름 입력">
+            <!-- '흑돼지', '돼지' 모두 정답으로 인정하기 위해 배열 사용 -->
+            <button onclick="checkAnswer(3, ['흑돼지', '돼지'])">정답 확인</button>
+        </div>
+
+        <!-- 📍 미션 4 화면 -->
+        <div id="screen-4" class="hidden">
+            <h2>📍 미션 4. 생명수 나르기</h2>
+            <div class="mission-desc">
+                <p><strong>🔎 관찰 포인트:</strong> 마당이나 부엌 주변의 항아리와 바구니</p>
+                <p>화산송이로 이루어진 제주는 물이 아주 귀했습니다. 여인들은 물을 길어 나를 때 '구덕'이라는 대나무 바구니에 '이 항아리'를 넣어 등에 지고 다녔습니다.<br><br>
+                이 항아리의 이름은 무엇일까요?</p>
+            </div>
+            <input type="text" id="answer-4" placeholder="정답 입력">
+            <!-- '물허벅', '허벅' 모두 정답 인정 -->
+            <button onclick="checkAnswer(4, ['물허벅', '허벅'])">정답 확인</button>
+        </div>
+
+        <!-- 🎉 성공 화면 -->
+        <div id="screen-end" class="hidden">
+            <h1>🎉 탈출 성공!</h1>
+            <h2>비밀의 문이 열렸습니다!</h2>
+            <div class="story">
+                당신은 무사히 현재로 돌아왔습니다.<br><br>
+                성읍민속마을 탐험을 훌륭하게 마친 것을 축하합니다! 선생님께 가서 미션 완료 화면을 보여주세요.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 게임 시작 버튼을 누르면 시작 화면을 숨기고 미션 1을 보여줍니다.
+        function startGame() {
+            document.getElementById('screen-start').classList.add('hidden');
+            document.getElementById('screen-1').classList.remove('hidden');
+        }
+
+        // 정답을 확인하는 함수입니다.
+        function checkAnswer(missionNumber, correctAnswer) {
+            // 학생이 입력한 값에서 띄어쓰기를 모두 없애고 확인합니다.
+            let userInput = document.getElementById('answer-' + missionNumber).value.replace(/\s+/g, '');
+            let isCorrect = false;
+
+            // 정답이 여러 개일 수 있는 경우 (배열로 들어온 경우)
+            if (Array.isArray(correctAnswer)) {
+                if (correctAnswer.includes(userInput)) {
+                    isCorrect = true;
+                }
+            } else {
+                // 정답이 하나인 경우
+                if (userInput === correctAnswer) {
+                    isCorrect = true;
+                }
+            }
+
+            // 정답 처리 로직
+            if (isCorrect) {
+                alert("정답입니다! 👏 다음 미션으로 이동합니다.");
+                
+                // 현재 화면 숨기기
+                document.getElementById('screen-' + missionNumber).classList.add('hidden');
+                
+                // 다음 화면 보여주기 (마지막 미션이면 성공 화면으로)
+                let nextScreen = (missionNumber === 4) ? 'screen-end' : 'screen-' + (missionNumber + 1);
+                document.getElementById(nextScreen).classList.remove('hidden');
+            } else {
+                alert("틀렸습니다. 🥲 단서를 다시 잘 살펴보고 입력해 보세요!");
+            }
+        }
+    </script>
+</body>
+</html>
